@@ -22,7 +22,7 @@
  */
 
 
-
+#include "game/game_state.h"
 #include <stdint.h>
 
 #define INFO_TYPE_KERNEL_LOAD_ADDR 0x15
@@ -221,6 +221,8 @@ void drawPixel(int x, int y, int color) {
     framebuffer[x+(y*framebufferWidth)] = (uint32_t)color;
 }
 
+GameState game;
+
 void main() {
 
     // Bottom must be kept as first line of main() function. Don't put anything
@@ -241,6 +243,17 @@ void main() {
         for(int y = 0; y < getFramebufferHeight(); y++) {
             drawPixel(x, y, 0xffffff);
         }
+    }
+
+    init_game(&game);
+
+    while(1) {
+	int key = read_key();
+
+        // TODO: map keys to paddle movement
+
+        update_game(&game);
+        render(&game);
     }
 
     while(1) {
