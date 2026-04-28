@@ -58,8 +58,9 @@ SDIR = src
 OBJS = \
 	kernel_main.o \
 	game/game.o \
-    input/input.o \
-    render/render.o \
+    	input/input.o \
+    	render/render.o \
+	render/font.o \
 
 # Make sure to keep a blank line here after OBJS list
 

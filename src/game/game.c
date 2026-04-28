@@ -2,6 +2,35 @@
 
 #define BALL_SPEED 4
 
+static const char *jokes[] = {
+    "TestA",
+    "TestB",
+    "TestC",
+};
+
+void copy_string(char *dest, const char *src, int max_len) {
+    int i = 0;
+    while (i < max_len - 1 && src[i]) {
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0';
+}
+
+#define NUM_JOKES (sizeof(jokes) / sizeof(jokes[0]))
+
+static int pseudo_rand = 0;
+
+int get_random_index() {
+    pseudo_rand = (pseudo_rand + 1) % NUM_JOKES;
+    return pseudo_rand;
+}
+
+void set_random_joke(GameState *state) {
+    int idx = get_random_index();
+    copy_string(state->current_joke, jokes[idx], MAX_JOKE_LEN);
+}
+
 void init_game(GameState *state) {
     state->ball_x = SCREEN_WIDTH / 2;
     state->ball_y = SCREEN_HEIGHT / 2;
@@ -13,6 +42,8 @@ void init_game(GameState *state) {
 
     state->score1 = 0;
     state->score2 = 0;
+
+    set_random_joke(state);
 }
 
 static void reset_ball(GameState *state, int dx) {
@@ -58,9 +89,11 @@ void update_game(GameState *state) {
     if (state->ball_x < 0) {
         state->score2++;
         reset_ball(state, BALL_SPEED);
+    	set_random_joke(state);
     }
     if (state->ball_x + BALL_SIZE > SCREEN_WIDTH) {
         state->score1++;
         reset_ball(state, -BALL_SPEED);
+        set_random_joke(state);
     }
 }

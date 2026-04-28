@@ -15,6 +15,8 @@
 #define COLOR_PADDLE2   0xffc72c
 #define COLOR_BALL      0x000000
 
+#define MAX_JOKE_LEN 128
+
 typedef struct {
     int ball_x;
     int ball_y;
@@ -26,6 +28,8 @@ typedef struct {
 
     int score1;
     int score2;
+
+    char current_joke[MAX_JOKE_LEN];
 
 } GameState;
 
