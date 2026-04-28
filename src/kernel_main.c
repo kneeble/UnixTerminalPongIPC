@@ -251,6 +251,10 @@ void main() {
 
     init_game(&game);
 
+    void delay() {
+        for (volatile int i = 0; i < 1000000; i++);
+    }
+
     while(1) {
         poll_keyboard();
 
@@ -269,14 +273,15 @@ void main() {
 
         update_game(&game);
         render(&game);
+        delay();
     }
 
-    while(1) {
+    /*while(1) {
 
         uint8_t status = inb(0x64);
 
         if(status & 1) {
             uint8_t scancode = inb(0x60);
         }
-    }
+    }*/
 }
