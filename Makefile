@@ -97,7 +97,7 @@ rootfs.img:
 
 
 run:
-	qemu-system-i386 -hda rootfs.img
+	qemu-system-i386 -hda rootfs.img -monitor stdio
 
 debug:
 	./launch_qemu.sh
