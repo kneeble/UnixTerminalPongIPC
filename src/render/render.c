@@ -2,22 +2,24 @@
 
 extern void drawPixel(int x, int y, int color);
 
-static void fill_rect(int x, int y, int w, int h, int color) {
-    for (int i = x; i < x + w; i++) {
-        for (int j = y; j < y + h; j++) {
-            drawPixel(i, j, color);
+void render(GameState *state) {
+    int p1_x = PADDLE_X_OFFSET;
+    int p2_x = SCREEN_WIDTH - PADDLE_X_OFFSET - PADDLE_WIDTH;
+
+    for (int y = 0; y < SCREEN_HEIGHT; y++) {
+        for (int x = 0; x < SCREEN_WIDTH; x++) {
+            int color = COLOR_BG;
+            if (x >= p1_x && x < p1_x + PADDLE_WIDTH &&
+                y >= state->paddle1_y && y < state->paddle1_y + PADDLE_HEIGHT) {
+                color = COLOR_PADDLE1;
+            } else if (x >= p2_x && x < p2_x + PADDLE_WIDTH &&
+                       y >= state->paddle2_y && y < state->paddle2_y + PADDLE_HEIGHT) {
+                color = COLOR_PADDLE2;
+            } else if (x >= state->ball_x && x < state->ball_x + BALL_SIZE &&
+                       y >= state->ball_y && y < state->ball_y + BALL_SIZE) {
+                color = COLOR_BALL;
+            }
+            drawPixel(x, y, color);
         }
     }
-}
-
-void render(GameState *state) {
-    fill_rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_BG);
-
-    int p1_x = PADDLE_X_OFFSET;
-    fill_rect(p1_x, state->paddle1_y, PADDLE_WIDTH, PADDLE_HEIGHT, COLOR_FG);
-
-    int p2_x = SCREEN_WIDTH - PADDLE_X_OFFSET - PADDLE_WIDTH;
-    fill_rect(p2_x, state->paddle2_y, PADDLE_WIDTH, PADDLE_HEIGHT, COLOR_FG);
-
-    fill_rect(state->ball_x, state->ball_y, BALL_SIZE, BALL_SIZE, COLOR_FG);
 }
