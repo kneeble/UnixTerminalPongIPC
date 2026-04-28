@@ -22,7 +22,9 @@
  */
 
 
-#include "game/game_state.h"
+#include "game/game.h"
+#include "render/render.h"
+#include "input/input.h"
 #include <stdint.h>
 
 #define INFO_TYPE_KERNEL_LOAD_ADDR 0x15
@@ -49,6 +51,8 @@
 #define PARTITION_ENTRY_2 (struct partitionEntry*)(0x7dce)
 #define PARTITION_ENTRY_3 (struct partitionEntry*)(0x7dde)
 #define PARTITION_ENTRY_4 (struct partitionEntry*)(0x7dee)
+
+#define PADDLE_STEP   8
 
 
 
@@ -248,9 +252,20 @@ void main() {
     init_game(&game);
 
     while(1) {
-	int key = read_key();
+        poll_keyboard();
 
-        // TODO: map keys to paddle movement
+        if (is_key_down('w') && game.paddle1_y > 0) {
+            game.paddle1_y -= PADDLE_STEP;
+        }
+        if (is_key_down('s') && game.paddle1_y + PADDLE_HEIGHT < SCREEN_HEIGHT) {
+            game.paddle1_y += PADDLE_STEP;
+        }
+        if (is_key_down('i') && game.paddle2_y > 0) {
+            game.paddle2_y -= PADDLE_STEP;
+        }
+        if (is_key_down('k') && game.paddle2_y + PADDLE_HEIGHT < SCREEN_HEIGHT) {
+            game.paddle2_y += PADDLE_STEP;
+        }
 
         update_game(&game);
         render(&game);

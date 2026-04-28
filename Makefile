@@ -66,16 +66,18 @@ OBJS = \
 OBJ = $(patsubst %,$(ODIR)/%,$(OBJS))
 
 $(ODIR)/%.o: $(SDIR)/%.c
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -g -o $@ $^
 
 $(ODIR)/%.o: $(SDIR)/%.s
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -g -o $@ $^
 
 
 all: bin rootfs.img
 
 bin: obj $(OBJ)
-	$(LD) -melf_i386  obj/* -Tkernel.ld -o kernel
+	$(LD) -melf_i386  $(OBJ) -Tkernel.ld -o kernel
 	$(SIZE) kernel
 
 obj:
@@ -101,4 +103,4 @@ debug:
 	./launch_qemu.sh
 
 clean:
-	rm -f grub.img kernel rootfs.img obj/*
+	rm -rf grub.img kernel rootfs.img obj
