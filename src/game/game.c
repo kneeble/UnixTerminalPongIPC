@@ -3,9 +3,20 @@
 #define BALL_SPEED 4
 
 static const char *jokes[] = {
-    "TestA",
-    "TestB",
-    "TestC",
+    "I would tell you a UDP joke, but you got some latency on the line.",
+    "How many computer programmers does it take to change a light bulb? None, that is a hardware problem.",
+    "Why do number jokes not work in Octal? Because 7 10 11!",
+    "What do you call 8 Hobbits? A Hobbyte.",
+    "How much money do I owe you, said ProgammerA. 500 dollars, said ProgrammerB. Shall I reound it to 512?",
+    "Why do mathematicians always confuse Halloween and Christmas? Because 31 Oct equals 25 Dec.",
+    "Why did c++ decide to not go out with c? Because quite frankly, c just has no class",
+    "And on the seventh day, He exited from append mode.",
+    "Why is the number 237 magical? Because it is Hex ED",
+    "How do robots eat pizza? One byte at a time.",
+    "How do dolphins compute? They use a Central Porpoising Unit.",
+    "I have a CS joke but it does not compute.",
+    "I have a joke about my work as a software engineer, but it only works for me.",
+    "What do you get if you cross a computer with an elephant? Lots of memory",
 };
 
 void copy_string(char *dest, const char *src, int max_len) {
